@@ -30,6 +30,7 @@ public class Hand : MonoBehaviour
     public UnityEventBool OnGrabStart { get => onGrabStart; set => onGrabStart = value; }
     public UnityEventBool OnGrabEnd { get => onGrabEnd; set => onGrabEnd = value; }
     public float RayDistance { get => rayDistance; }
+    public Grabbable Grabbed { get => grabbed; private set => grabbed = value; }
 
     void OnValidate()
     {
@@ -102,22 +103,22 @@ public class Hand : MonoBehaviour
 
     private bool TryPick()
     {
-        if (grabbed != null) { return false; }
+        if (Grabbed != null) { return false; }
         Grabbable target = Ray();
 
         if (target is null) { return false; }
         if (!target.CanPick()) { return false; }
 
-        grabbed = target;
-        grabbed.Grab(this);
+        Grabbed = target;
+        Grabbed.Grab(this);
         return true;
     }
 
     private bool Release()
     {
-        if (grabbed is null) { return false; }
-        grabbed.Release(this);
-        grabbed = null;
+        if (Grabbed is null) { return false; }
+        Grabbed.Release(this);
+        Grabbed = null;
         return true;
     }
 

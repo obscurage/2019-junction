@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 6148504885253136386}
   handType: 0
-  rayDistance: 3
+  rayDistance: 5
   grabMask:
     serializedVersion: 2
     m_Bits: 768
@@ -349,7 +349,7 @@ MonoBehaviour:
   oneShot: {fileID: 6851334313062097340}
   fluctuation: 0.05
   points: 10
-  duration: 0.77
+  duration: 0.5
   curve:
     serializedVersion: 2
     m_Curve:
@@ -383,12 +383,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  grabSoundTime: 0
+  grabSoundTime: 0.3
   shootSound: {fileID: 8300000, guid: c81eee83a0ad0ce438affda0a6a0f630, type: 3}
   grabSound: {fileID: 8300000, guid: 2c93a81d00d8cf6428049f4b69972fd0, type: 3}
   throwSound: {fileID: 8300000, guid: c4aa49563ff266946a0d0b7c8b98e1b5, type: 3}
   suckSound: {fileID: 8300000, guid: 17da5bdad7735524e97deafd068435e5, type: 3}
-  holdSound: {fileID: 0}
+  holdSound: {fileID: 8300000, guid: 17da5bdad7735524e97deafd068435e5, type: 3}
 --- !u!114 &1303007091695420995
 MonoBehaviour:
   m_ObjectHideFlags: 0
