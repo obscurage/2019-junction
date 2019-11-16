@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Gravitable))]
+[RequireComponent(typeof(SphereCollider))]
+
 public class Grabbable : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Gravitable gravitable;
+    [SerializeField] private Collider collider;
 
     [SerializeField] private UnityEvent onGrabEvent;
     [SerializeField] private UnityEvent onReleaseEvent;
@@ -18,15 +23,17 @@ public class Grabbable : MonoBehaviour
 
     void OnValidate()
     {
-        if(rb is null) { rb = GetComponent<Rigidbody>(); }
+        if (rb is null) { rb = GetComponent<Rigidbody>(); }
+        if (gravitable is null) { gravitable = GetComponent<Gravitable>(); }
+        if (collider is null) { collider = GetComponent<Collider>(); }
+        collider.isTrigger = false;
     }
 
     public void Grab(Hand hand)
     {
         Grabber = hand;
         rb.constraints = RigidbodyConstraints.FreezeAll;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        gravitable.Freeze();
         Parentize(true);
         OnGrabEvent.Invoke();
 
@@ -37,25 +44,26 @@ public class Grabbable : MonoBehaviour
         Parentize(false);
         rb.constraints = RigidbodyConstraints.None;
         AddForce();
+        gravitable.ApplyGravitalForce = true;
         OnReleaseEvent.Invoke();
         Grabber = null;
     }
 
     public bool CanPick()
     {
-        if(Grabber is null)
+        if (Grabber is null)
         { return true; }
         return false;
     }
 
     protected void AddForce()
     {
-        rb.AddForce(Grabber.VelocityTracker.GetVelocity3D(), ForceMode.Impulse);
+        gravitable.AddForce(Grabber.VelocityTracker.GetVelocity3D());
     }
 
     protected void Parentize(bool state)
     {
-        if(state && Grabber != null)
+        if (state && Grabber != null)
         {
             transform.parent = Grabber.transform;
         }
