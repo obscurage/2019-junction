@@ -16,7 +16,7 @@ public class PcController : MonoBehaviour
         get => rotation; set
         {
             rotation = value;
-            rotation = new Vector2(Mathf.Clamp(rotation.x, -45, 45), rotation.y);
+            rotation = new Vector2(Mathf.Clamp(rotation.x, -80, 80), rotation.y);
         }
     }
 

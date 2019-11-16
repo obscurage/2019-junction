@@ -18,15 +18,15 @@ public class PcInputs : HandInput
         return false;
     }
 
-    public override bool StartGrab()
+    public override bool TryGrab()
     {
         switch (HandType)
         {
             case HandType.LeftHand:
-                if (Input.GetKeyDown(KeyCode.Mouse0)) { return true; }
+                if (Input.GetKey(KeyCode.Mouse0)) { return true; }
                 break;
             case HandType.RightHand:
-                if (Input.GetKeyDown(KeyCode.Mouse1)) { return true; }
+                if (Input.GetKey(KeyCode.Mouse1)) { return true; }
                 break;
         }
         return false;

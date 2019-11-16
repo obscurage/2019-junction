@@ -13,9 +13,9 @@ public class OculusInput : HandInput
         return false;
     }
 
-    public override bool StartGrab()
+    public override bool TryGrab()
     {
-        if (curTrig >= 0.6f && prevTrig < 0.6f) { return true; }
+        if (curTrig >= 0.6f /*&& prevTrig < 0.6f*/) { return true; }
         return false;
     }
 

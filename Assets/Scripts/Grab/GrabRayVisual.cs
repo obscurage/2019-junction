@@ -58,6 +58,7 @@ public class GrabRayVisual : MonoBehaviour
         { oneShot.PlayOneShot(grabSound); }
         if (timer >= 1f)
         {
+            hand.OuterRayAbort = true;
             timer = 1f;
             looping.clip = holdSound;
             this.enabled = false;
@@ -87,6 +88,7 @@ public class GrabRayVisual : MonoBehaviour
         looping.Play();
         Enabled(true);
     }
+
     public void Stop(bool released)
     {
         if (released)

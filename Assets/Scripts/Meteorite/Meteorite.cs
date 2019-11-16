@@ -18,14 +18,25 @@ public class Meteorite : MonoBehaviour
 
     public bool IsDestroyed { get => isDestroyed; }
     public MeteoriteType MeteoriteType { get => meteoriteType; }
+    public Gravitable Gravitable { get => gravitable; private set => gravitable = value; }
 
     public void SetThrown() { isThrown = true; }
 
     void OnValidate()
     {
         if (grabbable is null) { grabbable = GetComponent<Grabbable>(); }
-        if (gravitable is null) { gravitable = GetComponent<Gravitable>(); }
+        if (Gravitable is null) { Gravitable = GetComponent<Gravitable>(); }
         gameObject.layer = 9; // 9 = meteorite layer
+
+        grabbable.OnReleaseEvent.OnValidateOnlyAddEvent(SetThrown);
+    }
+
+    void FixedUpdate()
+    {
+        if (Vector3.Distance(transform.position, Player.instance.Head.position) > 1000f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter(Collision col)
@@ -55,7 +66,7 @@ public class Meteorite : MonoBehaviour
                 DestroyMeteorite(dType);
                 break;
             case DestroyType.fuse:
-                power += meteorite.power;
+                power += meteorite.power + 1;
                 OnFuse();
                 break;
             case DestroyType.suicide:
@@ -76,12 +87,13 @@ public class Meteorite : MonoBehaviour
 
     private void DestroyMeteorite(DestroyType dType)
     {
+        isDestroyed = true;
         Destroy(gameObject);
     }
 
     private DestroyType GetDestroyType(Meteorite other)
     {
-        if (other.MeteoriteType != MeteoriteType.normal && other.MeteoriteType != MeteoriteType)
+        if (other.MeteoriteType != MeteoriteType.normal && other.MeteoriteType != MeteoriteType && MeteoriteType != MeteoriteType.normal)
         { return DestroyType.conflict; }
 
         if (MeteoriteType != MeteoriteType.normal && other.MeteoriteType == MeteoriteType)

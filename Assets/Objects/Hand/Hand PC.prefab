@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4865d2b4cd6a94d429f14f2ace7f0b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForce: 1
+  shootForce: 10
 --- !u!114 &3186891735087223199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,6 +38,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hand PC
       objectReference: {fileID: 0}
+    - target: {fileID: 6214171003762074367, guid: 31c83a9dc97916e409bf33efc1891967,
+        type: 3}
+      propertyPath: input
+      value: 
+      objectReference: {fileID: 3186891735087223199}
     - target: {fileID: 6214171003762074366, guid: 31c83a9dc97916e409bf33efc1891967,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -93,11 +98,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6214171003762074367, guid: 31c83a9dc97916e409bf33efc1891967,
-        type: 3}
-      propertyPath: input
-      value: 
-      objectReference: {fileID: 3186891735087223199}
     - target: {fileID: 6214171004826419340, guid: 31c83a9dc97916e409bf33efc1891967,
         type: 3}
       propertyPath: m_LocalPosition.x

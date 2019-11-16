@@ -269,6 +269,8 @@ GameObject:
   - component: {fileID: 1104172319353412513}
   - component: {fileID: 1104172319353412512}
   - component: {fileID: 1104172319353412519}
+  - component: {fileID: 5140949529764921364}
+  - component: {fileID: 1090556753369567923}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -370,6 +372,67 @@ MonoBehaviour:
   generalAudioSource: {fileID: 1104172319508713897}
   changeToOrangeAudio: {fileID: 8300000, guid: 2ba48742c59488b449fb8c239d1e36a4, type: 3}
   changeToPurpleAudio: {fileID: 8300000, guid: 04f729236fed65d4da7b1698c5dd50af, type: 3}
+--- !u!114 &5140949529764921364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104172319353412518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e335a0cb9c9bdde45b2dab568365186c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDistance: {x: 100, y: 200}
+  spawnForce: {x: 5, y: 10}
+  curveDuration: 300
+  spawnDelayCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 5
+      inSlope: -9.801111
+      outSlope: -9.801111
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.0734767
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: -1.1370502
+      outSlope: -1.1370502
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.105734766
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  meteorites:
+  - {fileID: 5528097137760503307, guid: fa1e96b9e5785ab499068f8c952b5c5a, type: 3}
+  - {fileID: 5528097137760503307, guid: fa1e96b9e5785ab499068f8c952b5c5a, type: 3}
+  - {fileID: 5528097137760503307, guid: fa1e96b9e5785ab499068f8c952b5c5a, type: 3}
+  - {fileID: 4412898297468744766, guid: 748732c51e5c82545aaced410cee8be6, type: 3}
+  - {fileID: 4412898297468744766, guid: 748732c51e5c82545aaced410cee8be6, type: 3}
+  - {fileID: 972451786574238619, guid: 65ea041808777674b83b372c8049a63b, type: 3}
+  - {fileID: 972451786574238619, guid: 65ea041808777674b83b372c8049a63b, type: 3}
+  - {fileID: 5528097137760503307, guid: fa1e96b9e5785ab499068f8c952b5c5a, type: 3}
+--- !u!114 &1090556753369567923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104172319353412518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bc276c6f9df6047976333cf83b3180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMode: 2
 --- !u!1 &1104172319508713896
 GameObject:
   m_ObjectHideFlags: 0

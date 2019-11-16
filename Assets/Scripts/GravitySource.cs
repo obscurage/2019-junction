@@ -9,6 +9,8 @@ public class GravitySource : MonoBehaviour
     [SerializeField] private float gravitalForce = 1f;
     public Vector3 GetGravitalForce(Transform target)
     {
+        if (transform == null) { Debug.LogWarning("idk error A"); return Vector3.zero; }
+        if (target == null) { Debug.LogWarning("idk error B"); return Vector3.zero; }
         return new Vector3
         (transform.position.x - target.position.x
         , transform.position.y - target.position.y
@@ -21,7 +23,7 @@ public class GravitySource : MonoBehaviour
     {
         gameObject.name = "GravitalField";
         gameObject.layer = 10; // 10 = gravitalfield
-        if(collider is null) { collider = GetComponent<SphereCollider>(); }
+        if (collider is null) { collider = GetComponent<SphereCollider>(); }
         collider.isTrigger = true;
     }
 

@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
         { Destroy(gameObject); }
     }
 
+    void Start()
+    {
+        transform.parent = Player.instance.Head;
+        transform.localPosition = Vector3.zero;
+    }
+
     public ScoreManager ScoreManager { get; set; }
     public LifeManager LifeManager { get; set; }
     public TimeManager TimeManager { get; set; }

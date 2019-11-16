@@ -14,11 +14,13 @@ public enum HandType
 public class Hand : MonoBehaviour
 {
     [SerializeField] private HandInput input;
+    [SerializeField] private Transform grabPoint;
 
     [SerializeField] private HandType handType;
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask grabMask;
 
+    [SerializeField] private UnityEvent onShootStart = new UnityEvent();
     [SerializeField] private UnityEventBool onGrabStart = new UnityEventBool();
     [SerializeField] private UnityEventBool onGrabEnd = new UnityEventBool();
 
@@ -30,11 +32,16 @@ public class Hand : MonoBehaviour
     public UnityEventBool OnGrabStart { get => onGrabStart; set => onGrabStart = value; }
     public UnityEventBool OnGrabEnd { get => onGrabEnd; set => onGrabEnd = value; }
     public float RayDistance { get => rayDistance; }
+    public Transform GrabPoint { get => grabPoint; }
+    public UnityEvent OnShootStart { get => onShootStart; set => onShootStart = value; }
+
+    public bool OuterRayAbort { get; set; } = false;
+    private bool shooting = false;
 
     void OnValidate()
     {
         if (input is null) { input = GetComponent<HandInput>(); }
-        if(VelocityTracker is null) { VelocityTracker = GetComponent<HandVelocityTracker>(); }
+        if (VelocityTracker is null) { VelocityTracker = GetComponent<HandVelocityTracker>(); }
     }
 
     void Start()
@@ -49,12 +56,18 @@ public class Hand : MonoBehaviour
         if (RayInput())
         {
             bool state = TryPick();
-            OnGrabStart.Invoke(state);
+            if (!shooting)
+            {
+                OnGrabStart.Invoke(state);
+                OuterRayAbort = false;
+            }
+            shooting = true;
         }
         if (ReleaseInput())
         {
             bool state = Release();
             OnGrabEnd.Invoke(state);
+            shooting = false;
         }
 
         if (input.ViewScreen())
@@ -74,7 +87,7 @@ public class Hand : MonoBehaviour
 
     private bool RayInput()
     {
-        if (input.StartGrab()) { return true; }
+        if (input.TryGrab()) { return true; }
         return false;
     }
     private bool ReleaseInput()
@@ -103,6 +116,7 @@ public class Hand : MonoBehaviour
     private bool TryPick()
     {
         if (grabbed != null) { return false; }
+        if (OuterRayAbort) { return false; }
         Grabbable target = Ray();
 
         if (target is null) { return false; }

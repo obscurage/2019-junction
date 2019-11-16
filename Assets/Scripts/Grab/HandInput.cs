@@ -15,7 +15,7 @@ public abstract class HandInput : MonoBehaviour
 
     public abstract void UpdateInput();
 
-    public abstract bool StartGrab();
+    public abstract bool TryGrab();
     public abstract bool ReleaseGrab();
 
     public abstract bool SwitchMode();

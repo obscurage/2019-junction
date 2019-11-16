@@ -36,7 +36,7 @@ public class Grabbable : MonoBehaviour
         gravitable.Freeze();
         Parentize(true);
         OnGrabEvent.Invoke();
-
+        collider.enabled = false;
         gameObject.AddComponent<Centerize>().Play(0.5f);
     }
     public void Release(Hand hand)
@@ -45,6 +45,7 @@ public class Grabbable : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         AddForce();
         gravitable.ApplyGravitalForce = true;
+        collider.enabled = true;
         OnReleaseEvent.Invoke();
         Grabber = null;
     }
@@ -65,7 +66,7 @@ public class Grabbable : MonoBehaviour
     {
         if (state && Grabber != null)
         {
-            transform.parent = Grabber.transform;
+            transform.parent = Grabber.GrabPoint;
         }
         else
         {
