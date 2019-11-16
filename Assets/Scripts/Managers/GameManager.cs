@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ScoreManager))]
 [RequireComponent(typeof(LifeManager))]
 [RequireComponent(typeof(TimeManager))]
+[RequireComponent(typeof(PanicButtons))]
 
 public class GameManager : MonoBehaviour
 {

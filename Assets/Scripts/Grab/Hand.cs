@@ -12,6 +12,8 @@ public enum HandType
 
 public class Hand : MonoBehaviour
 {
+    [SerializeField] private HandInput input;
+
     [SerializeField] private HandType handType;
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask grabMask;
@@ -23,7 +25,12 @@ public class Hand : MonoBehaviour
     private Grabbable grabbed = null;
 
     public HandVelocityTracker VelocityTracker { get => velocityTracker; private set => velocityTracker = value; }
+    public HandType HandType { get => handType; }
 
+    void OnValidate()
+    {
+        if (input is null) { input = GetComponent<HandInput>(); }
+    }
 
     void Start()
     {
@@ -33,15 +40,7 @@ public class Hand : MonoBehaviour
 
     void Update()
     {
-        switch (handType)
-        {
-            case HandType.LeftHand:
-                curTrig = OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger);
-                break;
-            case HandType.RightHand:
-                curTrig = OVRInput.Get(OVRInput.RawAxis1D.RHandTrigger);
-                break;
-        }
+        input.UpdateInput();
 
         if (RayInput())
         {
@@ -53,6 +52,16 @@ public class Hand : MonoBehaviour
             bool state = Release();
             OnGrabStart.Invoke(state);
         }
+
+        if (input.ViewScreen())
+        {
+            ViewScreen();
+        }
+        if (input.SwitchMode())
+        {
+            SwitchMode();
+        }
+
         prevTrig = curTrig;
     }
 
@@ -63,8 +72,7 @@ public class Hand : MonoBehaviour
     {
         if (grabbed is null)
         {
-            if (curTrig >= 0.6f && prevTrig < 0.6f) { return false; }
-            return true;
+            if (input.StartGrab()) { return true; }
         }
         return false;
     }
@@ -72,8 +80,7 @@ public class Hand : MonoBehaviour
     {
         if (grabbed != null)
         {
-            if (curTrig <= 0.4f && prevTrig > 0.4f) { return false; }
-            return true;
+            if (input.ReleaseGrab()) { return true; }
         }
         return false;
     }
@@ -112,5 +119,15 @@ public class Hand : MonoBehaviour
         grabbed.Release(this);
         grabbed = null;
         return true;
+    }
+
+    private void SwitchMode()
+    {
+
+    }
+
+    private void ViewScreen()
+    {
+
     }
 }
