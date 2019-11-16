@@ -37,6 +37,7 @@ public class Hand : MonoBehaviour
 
     public bool OuterRayAbort { get; set; } = false;
     private bool shooting = false;
+    public Grabbable Grabbed { get => grabbed; private set => grabbed = value; }
 
     void OnValidate()
     {
@@ -115,23 +116,23 @@ public class Hand : MonoBehaviour
 
     private bool TryPick()
     {
-        if (grabbed != null) { return false; }
         if (OuterRayAbort) { return false; }
+        if (Grabbed != null) { return false; }
         Grabbable target = Ray();
 
         if (target is null) { return false; }
         if (!target.CanPick()) { return false; }
 
-        grabbed = target;
-        grabbed.Grab(this);
+        Grabbed = target;
+        Grabbed.Grab(this);
         return true;
     }
 
     private bool Release()
     {
-        if (grabbed is null) { return false; }
-        grabbed.Release(this);
-        grabbed = null;
+        if (Grabbed is null) { return false; }
+        Grabbed.Release(this);
+        Grabbed = null;
         return true;
     }
 

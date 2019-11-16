@@ -54,13 +54,16 @@ public class GrabRayVisual : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime / duration;
-        if (oneShot.clip != grabSound && timer >= grabSoundTime)
+        if (hand.Grabbed != null && oneShot.clip != grabSound && timer >= grabSoundTime)
         { oneShot.PlayOneShot(grabSound); }
         if (timer >= 1f)
         {
             hand.OuterRayAbort = true;
             timer = 1f;
-            looping.clip = holdSound;
+            if (hand.Grabbed) { 
+                looping.clip = holdSound;
+                looping.Play();
+            }
             this.enabled = false;
             rend.enabled = false;
         }
@@ -84,8 +87,6 @@ public class GrabRayVisual : MonoBehaviour
         distance = hand.RayDistance;
         timer = 0f;
         oneShot.PlayOneShot(shootSound);
-        looping.clip = suckSound;
-        looping.Play();
         Enabled(true);
     }
 
@@ -93,6 +94,7 @@ public class GrabRayVisual : MonoBehaviour
     {
         if (released)
         { oneShot.PlayOneShot(throwSound); }
+        looping.Stop();
         Enabled(false);
     }
 
@@ -100,6 +102,5 @@ public class GrabRayVisual : MonoBehaviour
     {
         this.enabled = state;
         rend.enabled = state;
-        looping.Stop();
     }
 }

@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
         { Destroy(gameObject); }
 
         orangeAudioSource.volume = 0f;
-        purpleAudioSource.volume = 1f;
+        purpleAudioSource.volume = 0.5f;
 
         orangeAudioSource.Play();
         purpleAudioSource.Play();
@@ -29,7 +29,8 @@ public class AudioManager : MonoBehaviour
 
     public void ModeChange(ViewMode mode)
     {
-         // fade out playing track and fade in current mode track
+        generalAudioSource.PlayOneShot(changeToOrangeAudio);
+        // fade out playing track and fade in current mode track
         switch (mode)
         {
             case ViewMode.orange:
@@ -57,7 +58,7 @@ public class AudioManager : MonoBehaviour
     public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
     {
         audioSource.volume = 0f;
-        while (audioSource.volume < 1)
+        while (audioSource.volume < 0.5f)
         {
             audioSource.volume += Time.deltaTime / FadeTime;
             yield return null;
