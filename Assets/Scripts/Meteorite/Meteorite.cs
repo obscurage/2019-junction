@@ -17,6 +17,8 @@ public class Meteorite : MonoBehaviour
     private bool isDestroyed = false;
 
     public bool IsDestroyed { get => isDestroyed; }
+    public MeteoriteType MeteoriteType { get => meteoriteType; }
+
     public void SetThrown() { isThrown = true; }
 
     void OnValidate()
@@ -31,9 +33,73 @@ public class Meteorite : MonoBehaviour
         if (!isThrown) { return; }
         if (IsDestroyed) { return; }
 
+        Meteorite other = col.gameObject.GetComponent<Meteorite>();
+        if (other is null) { return; }
 
+        DestroyType dType = GetDestroyType(other);
+
+        other.HitBy(this, dType);
+
+        DestroyMeteorite(dType);
     }
 
+    public void HitBy(Meteorite meteorite, DestroyType dType)
+    {
+        switch (dType)
+        {
+            case DestroyType.normal:
+                DestroyMeteorite(dType);
+                break;
+            case DestroyType.conflict:
+                OnConflict();
+                DestroyMeteorite(dType);
+                break;
+            case DestroyType.fuse:
+                power += meteorite.power;
+                OnFuse();
+                break;
+            case DestroyType.suicide:
+                break;
+        }
+    }
+
+    private void OnFuse()
+    {
+        transform.localScale = Vector3.one * (1 + (power * 0.3f));
+        // TODO fusio sound
+    }
+
+    private void OnConflict()
+    {
+        // TODO negate sound
+    }
+
+    private void DestroyMeteorite(DestroyType dType)
+    {
+        Destroy(gameObject);
+    }
+
+    private DestroyType GetDestroyType(Meteorite other)
+    {
+        if (other.MeteoriteType != MeteoriteType.normal && other.MeteoriteType != MeteoriteType)
+        { return DestroyType.conflict; }
+
+        if (MeteoriteType != MeteoriteType.normal && other.MeteoriteType == MeteoriteType)
+        { return DestroyType.fuse; }
+
+        if (other.MeteoriteType == MeteoriteType.normal)
+        { return DestroyType.normal; }
+
+        return DestroyType.suicide;
+    }
+}
+
+public enum DestroyType
+{
+    normal = 0,
+    conflict = 1,
+    fuse = 2,
+    suicide = 3,
 }
 
 public enum MeteoriteType

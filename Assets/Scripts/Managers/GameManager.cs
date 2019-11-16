@@ -24,4 +24,8 @@ public class GameManager : MonoBehaviour
     public TimeManager TimeManager { get; set; }
     public ModeManager ModeManager { get; set; }
 
+    public void SpawnParticleEffect(GameObject go, Vector3 location)
+    {
+        Instantiate(go, location, Quaternion.identity).GetComponent<ParticleSystem>().Play();
+    }
 }
