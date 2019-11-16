@@ -72,20 +72,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f6aa698d6e02d4a4e9754f3ab4fdadd8, type: 2}
-    - target: {fileID: 6200751785998139111, guid: fa1e96b9e5785ab499068f8c952b5c5a,
-        type: 3}
-      propertyPath: meteoriteType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5528097137760503306, guid: fa1e96b9e5785ab499068f8c952b5c5a,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5528097137760503299, guid: fa1e96b9e5785ab499068f8c952b5c5a,
         type: 3}
       propertyPath: m_Mass
       value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200751785998139111, guid: fa1e96b9e5785ab499068f8c952b5c5a,
+        type: 3}
+      propertyPath: meteoriteType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4492868619665060002, guid: fa1e96b9e5785ab499068f8c952b5c5a,
         type: 3}

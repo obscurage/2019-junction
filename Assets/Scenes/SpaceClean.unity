@@ -501,6 +501,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1104172318000837163, guid: e7fc4c25a40ce574688a4b4b145d8811,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104172318490935771, guid: e7fc4c25a40ce574688a4b4b145d8811,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5140949529764921364, guid: e7fc4c25a40ce574688a4b4b145d8811,
         type: 3}
       propertyPath: spawnDistance.x
