@@ -10,6 +10,7 @@ public enum HandType
     RightHand = 1,
 }
 
+[RequireComponent(typeof(HandVelocityTracker))]
 public class Hand : MonoBehaviour
 {
     [SerializeField] private HandInput input;
@@ -18,23 +19,26 @@ public class Hand : MonoBehaviour
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask grabMask;
 
-    [SerializeField] private UnityEventBool OnGrabStart = new UnityEventBool();
-    [SerializeField] private UnityEventBool OnGrabEnd = new UnityEventBool();
+    [SerializeField] private UnityEventBool onGrabStart = new UnityEventBool();
+    [SerializeField] private UnityEventBool onGrabEnd = new UnityEventBool();
 
     private HandVelocityTracker velocityTracker;
     private Grabbable grabbed = null;
 
     public HandVelocityTracker VelocityTracker { get => velocityTracker; private set => velocityTracker = value; }
     public HandType HandType { get => handType; }
+    public UnityEventBool OnGrabStart { get => onGrabStart; set => onGrabStart = value; }
+    public UnityEventBool OnGrabEnd { get => onGrabEnd; set => onGrabEnd = value; }
+    public float RayDistance { get => rayDistance; }
 
     void OnValidate()
     {
         if (input is null) { input = GetComponent<HandInput>(); }
+        if(VelocityTracker is null) { VelocityTracker = GetComponent<HandVelocityTracker>(); }
     }
 
     void Start()
     {
-        VelocityTracker = gameObject.AddComponent<HandVelocityTracker>();
         VelocityTracker.Setup(this);
     }
 
@@ -50,7 +54,7 @@ public class Hand : MonoBehaviour
         if (ReleaseInput())
         {
             bool state = Release();
-            OnGrabStart.Invoke(state);
+            OnGrabEnd.Invoke(state);
         }
 
         if (input.ViewScreen())
@@ -70,26 +74,21 @@ public class Hand : MonoBehaviour
 
     private bool RayInput()
     {
-        if (grabbed is null)
-        {
-            if (input.StartGrab()) { return true; }
-        }
+        if (input.StartGrab()) { return true; }
         return false;
     }
     private bool ReleaseInput()
     {
-        if (grabbed != null)
-        {
-            if (input.ReleaseGrab()) { return true; }
-        }
+
+        if (input.ReleaseGrab()) { return true; }
         return false;
     }
 
     private Grabbable Ray()
     {
         RaycastHit hit;
-        Debug.DrawRay(transform.position, Forward() * rayDistance, Color.red, 1f);
-        if (Physics.Raycast(transform.position, Forward(), out hit, rayDistance, grabMask))
+        Debug.DrawRay(transform.position, Forward() * RayDistance, Color.red, 1f);
+        if (Physics.Raycast(transform.position, Forward(), out hit, RayDistance, grabMask))
         {
             return hit.transform.GetComponent<Grabbable>();
         }
@@ -103,6 +102,7 @@ public class Hand : MonoBehaviour
 
     private bool TryPick()
     {
+        if (grabbed != null) { return false; }
         Grabbable target = Ray();
 
         if (target is null) { return false; }
@@ -123,7 +123,7 @@ public class Hand : MonoBehaviour
 
     private void SwitchMode()
     {
-
+        GameManager.instance.ModeManager.SwitchMode();
     }
 
     private void ViewScreen()

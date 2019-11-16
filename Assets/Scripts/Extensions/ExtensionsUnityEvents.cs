@@ -14,6 +14,11 @@ public static class ExtensionsEvents
         UnityEventTools.RemovePersistentListener(e, action);
         UnityEventTools.AddPersistentListener(e, action);
     }
+    public static void OnValidateOnlyAddEvent(this UnityEventBool e, UnityAction<bool> action)
+    {
+        UnityEventTools.RemovePersistentListener(e, action);
+        UnityEventTools.AddPersistentListener(e, action);
+    }
 }
 
 [System.Serializable]
@@ -32,3 +37,4 @@ public class UnityEventTransform : UnityEvent<Transform> { }
 public class UnityEventVector3 : UnityEvent<Vector3> { }
 [System.Serializable]
 public class UnityEventVector2 : UnityEvent<Vector2> { }
+

@@ -3,11 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GameManager))]
 public class ModeManager : MonoBehaviour
 {
+    void Awake()
+    {
+        GameManager.instance.ModeManager = this;
+    }
+
     [SerializeField] private ViewMode currentMode = ViewMode.purple;
+    private List<ModeChanger> changers = new List<ModeChanger>();
 
     public ViewMode CurrentMode { get => currentMode; private set => currentMode = value; }
+    public List<ModeChanger> Changers { get => changers; set => changers = value; }
 
     public void SwitchMode()
     {
@@ -24,8 +32,10 @@ public class ModeManager : MonoBehaviour
 
     public void SetMode(ViewMode mode)
     {
+        if (mode == CurrentMode) { return; }
         CurrentMode = mode;
-
+        foreach (ModeChanger changers in Changers)
+        { changers.ModeChange(CurrentMode); }
     }
 }
 

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class HandVelocityTracker : MonoBehaviour
 {
-    private float velocityMultiplier = 1f;
-    private List<Vector3> points = new List<Vector3>();
-    private Hand hand;
-    private Transform Transform { get => hand.transform; }
+    protected float velocityMultiplier = 1f;
+    protected List<Vector3> points = new List<Vector3>();
+    protected Hand hand;
+    protected Transform Transform { get => hand.transform; }
 
-    private Vector3 prevPoint;
+    protected Vector3 prevPoint;
 
-    public void Setup(Hand _hand, int pointCount = 10)
+    public virtual void Setup(Hand _hand, int pointCount = 10)
     {
         hand = _hand;
         points = new List<Vector3>();
@@ -20,14 +20,14 @@ public class HandVelocityTracker : MonoBehaviour
         { points.Add(Vector3.zero); }
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         points.Add(Transform.position - prevPoint);
         points.RemoveAt(points.Count - 1);
         prevPoint = Transform.position;
     }
 
-    public Vector3 GetVelocity3D()
+    public virtual Vector3 GetVelocity3D()
     {
         Vector3 result = Vector3.zero;
         float totalWeight = 0.00f;
