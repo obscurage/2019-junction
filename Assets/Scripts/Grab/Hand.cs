@@ -16,8 +16,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask grabMask;
 
-    [SerializeField] private UnityEventBool OnGrabStart;
-    [SerializeField] private UnityEventBool OnGrabEnd;
+    [SerializeField] private UnityEventBool OnGrabStart = new UnityEventBool();
+    [SerializeField] private UnityEventBool OnGrabEnd = new UnityEventBool();
 
     private HandVelocityTracker velocityTracker;
     private Grabbable grabbed = null;
@@ -114,6 +114,3 @@ public class Hand : MonoBehaviour
         return true;
     }
 }
-
-
-public class UnityEventBool : UnityEvent<bool> { }
