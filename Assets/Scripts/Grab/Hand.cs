@@ -96,7 +96,7 @@ public class Hand : MonoBehaviour
         return null;
     }
 
-    private Vector3 Forward()
+    public Vector3 Forward()
     {
         return transform.forward;
     }
