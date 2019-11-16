@@ -20,6 +20,7 @@ public class GrabRayVisual : MonoBehaviour
     [Range(0.00f, 1.00f)]
     [SerializeField]
     private float grabSoundTime = 0.6f;
+    [SerializeField] private AudioClip shootSound;
     [SerializeField] private AudioClip grabSound;
     [SerializeField] private AudioClip throwSound;
     [Space(10)]
@@ -53,7 +54,7 @@ public class GrabRayVisual : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime / duration;
-        if (oneShot.clip is null && timer >= grabSoundTime)
+        if (oneShot.clip != grabSound && timer >= grabSoundTime)
         { oneShot.PlayOneShot(grabSound); }
         if (timer >= 1f)
         {
@@ -81,7 +82,7 @@ public class GrabRayVisual : MonoBehaviour
 
         distance = hand.RayDistance;
         timer = 0f;
-        oneShot.clip = null;
+        oneShot.PlayOneShot(shootSound);
         looping.clip = suckSound;
         looping.Play();
         Enabled(true);
