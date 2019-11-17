@@ -13,6 +13,10 @@ public class Meteorite : MonoBehaviour
     [HideInInspector] [SerializeField] private Grabbable grabbable;
     [HideInInspector] [SerializeField] private Gravitable gravitable;
 
+    [SerializeField] private AudioSource oneShot;
+    [SerializeField] private AudioClip fuseSound;
+    [SerializeField] private AudioClip conflictSound;
+
     private bool isThrown = false;
     private bool isDestroyed = false;
 
@@ -77,12 +81,12 @@ public class Meteorite : MonoBehaviour
     private void OnFuse()
     {
         transform.localScale = Vector3.one * (1 + (power * 0.3f));
-        // TODO fusio sound
+        AudioSource.PlayClipAtPoint(fuseSound, transform.position);
     }
 
     private void OnConflict()
     {
-        // TODO negate sound
+        AudioSource.PlayClipAtPoint(conflictSound, transform.position);
     }
 
     private void DestroyMeteorite(DestroyType dType)

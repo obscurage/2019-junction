@@ -8,10 +8,12 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource orangeAudioSource;
     public AudioSource purpleAudioSource;
-    public AudioSource generalAudioSource;
+    public AudioSource modeChangeAudioSource;
+    public AudioSource modeInterfaceAudioSource;
 
     public AudioClip changeToOrangeAudio;
     public AudioClip changeToPurpleAudio;
+    public AudioClip interfaceAudio;
 
     void Awake()
     {
@@ -29,19 +31,19 @@ public class AudioManager : MonoBehaviour
 
     public void ModeChange(ViewMode mode)
     {
-        generalAudioSource.PlayOneShot(changeToOrangeAudio);
+        modeInterfaceAudioSource.PlayOneShot(interfaceAudio);
         // fade out playing track and fade in current mode track
         switch (mode)
         {
             case ViewMode.orange:
                 StartCoroutine(AudioManager.FadeOut(purpleAudioSource, 0.5f));
                 StartCoroutine(AudioManager.FadeIn(orangeAudioSource, 0.5f));
-                generalAudioSource.PlayOneShot(changeToOrangeAudio);
+                modeChangeAudioSource.PlayOneShot(changeToOrangeAudio);
                 break;
             case ViewMode.purple:
                 StartCoroutine(AudioManager.FadeOut(orangeAudioSource, 0.5f));
                 StartCoroutine(AudioManager.FadeIn(purpleAudioSource, 0.5f));
-                generalAudioSource.PlayOneShot(changeToPurpleAudio);
+                modeChangeAudioSource.PlayOneShot(changeToPurpleAudio);
                 break;
         }
     }
