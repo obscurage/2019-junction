@@ -1239,7 +1239,7 @@ MonoBehaviour:
   rend: {fileID: 8191549868855005822}
   looping: {fileID: 7257774839923220135}
   oneShot: {fileID: 6851334313062097340}
-  fluctuation: 0.05
+  fluctuation: 0.1
   points: 10
   duration: 0.5
   curve:
