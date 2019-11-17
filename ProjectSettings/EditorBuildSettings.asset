@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SpaceClean.unity
+    guid: eeb469eb6b2ee8340a10760d5d3bb33a
   m_configObjects: {}

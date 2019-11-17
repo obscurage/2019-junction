@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+#if UNITY_EDITOR
 using UnityEditor.Events;
+#endif
 
 public static class ExtensionsEvents
 {
@@ -11,13 +13,17 @@ public static class ExtensionsEvents
     /// </summary>
     public static void OnValidateOnlyAddEvent(this UnityEvent e, UnityAction action)
     {
+#if UNITY_EDITOR
         UnityEventTools.RemovePersistentListener(e, action);
         UnityEventTools.AddPersistentListener(e, action);
+#endif
     }
     public static void OnValidateOnlyAddEvent(this UnityEventBool e, UnityAction<bool> action)
     {
+#if UNITY_EDITOR
         UnityEventTools.RemovePersistentListener(e, action);
         UnityEventTools.AddPersistentListener(e, action);
+#endif
     }
 }
 

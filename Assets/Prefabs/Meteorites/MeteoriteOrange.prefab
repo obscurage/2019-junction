@@ -303,6 +303,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5528097137760503307, guid: fa1e96b9e5785ab499068f8c952b5c5a,
+        type: 3}
+      propertyPath: m_Name
+      value: MeteoriteOrange
+      objectReference: {fileID: 0}
     - target: {fileID: 5528097137760503311, guid: fa1e96b9e5785ab499068f8c952b5c5a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -357,11 +362,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528097137760503307, guid: fa1e96b9e5785ab499068f8c952b5c5a,
-        type: 3}
-      propertyPath: m_Name
-      value: MeteoriteOrange
       objectReference: {fileID: 0}
     - target: {fileID: 5528097137760503306, guid: fa1e96b9e5785ab499068f8c952b5c5a,
         type: 3}
@@ -419,6 +419,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8849725830376125076, guid: fa1e96b9e5785ab499068f8c952b5c5a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849725830376125073, guid: fa1e96b9e5785ab499068f8c952b5c5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5528097137760503309, guid: fa1e96b9e5785ab499068f8c952b5c5a,
         type: 3}
       propertyPath: onAbortReleaseEvent.m_PersistentCalls.m_Calls.Array.size
@@ -448,16 +458,6 @@ PrefabInstance:
         type: 3}
       propertyPath: onAbortReleaseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8849725830376125076, guid: fa1e96b9e5785ab499068f8c952b5c5a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8849725830376125073, guid: fa1e96b9e5785ab499068f8c952b5c5a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4683908785939361605, guid: fa1e96b9e5785ab499068f8c952b5c5a, type: 3}
