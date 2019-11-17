@@ -41,7 +41,10 @@ public class ModeManager : MonoBehaviour
         CurrentMode = mode;
         AudioManager.instance.ModeChange(mode);
         foreach (ModeChanger changers in Changers)
-        { changers.ModeChange(CurrentMode); }
+        {
+            if(changers is null) { continue; }
+            changers.ModeChange(CurrentMode);
+        }
     }
 }
 
