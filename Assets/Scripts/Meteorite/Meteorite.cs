@@ -9,6 +9,10 @@ public class Meteorite : MonoBehaviour
 {
     [SerializeField] private MeteoriteType meteoriteType;
     [SerializeField] private float power;
+    [SerializeField] private GameObject destroyEffect;
+    [SerializeField] private AudioClip destroySound;
+    [SerializeField] private AudioClip neglateSound;
+    [SerializeField] private AudioClip fuseSound;
 
     [HideInInspector] [SerializeField] private Grabbable grabbable;
     [HideInInspector] [SerializeField] private Gravitable gravitable;
@@ -77,17 +81,20 @@ public class Meteorite : MonoBehaviour
     private void OnFuse()
     {
         transform.localScale = Vector3.one * (1 + (power * 0.3f));
-        // TODO fusio sound
+        GetComponentInChildren<AudioSource>().PlayOneShot(fuseSound);
+
     }
 
     private void OnConflict()
     {
-        // TODO negate sound
+        GetComponentInChildren<AudioSource>().PlayOneShot(neglateSound);
     }
 
     private void DestroyMeteorite(DestroyType dType)
     {
+        GetComponentInChildren<AudioSource>().PlayOneShot(destroySound);
         isDestroyed = true;
+        destroyEffect.SpawnParticleEffect(transform.position);
         Destroy(gameObject);
     }
 

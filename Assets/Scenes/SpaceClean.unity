@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0031043952, g: 0, b: 0.004594915, a: 1}
+  m_IndirectSpecularColor: {r: 0.0033173482, g: 0, b: 0.0048895525, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,7 +209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 778537027}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &778201291
 GameObject:
@@ -971,6 +971,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346621542930484351, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+        type: 3}
+      propertyPath: modeLayers.Array.data[0].mask.m_Bits
+      value: 2561
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346621542930484351, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+        type: 3}
+      propertyPath: modeLayers.Array.data[1].mask.m_Bits
+      value: 4609
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105108295662452307, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e6a4a74c608364ba2f82f33b80ae35, type: 3}
