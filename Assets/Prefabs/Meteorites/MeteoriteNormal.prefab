@@ -127,7 +127,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5528097137760503299
 Rigidbody:
@@ -216,8 +216,7 @@ MonoBehaviour:
   grabbable: {fileID: 5528097137760503309}
   gravitable: {fileID: 5528097137760503308}
   oneShot: {fileID: 0}
-  fuseSound: {fileID: 8300000, guid: a223070f71e44044ba38701922c00ed5, type: 3}
-  conflictSound: {fileID: 8300000, guid: 7ed6aef7e174c6c4f9fed5910904f733, type: 3}
+  conflictSound: {fileID: 0}
 --- !u!1 &5528097138253671861
 GameObject:
   m_ObjectHideFlags: 0
