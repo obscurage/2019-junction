@@ -8,6 +8,8 @@ public class Centerize : MonoBehaviour
     private float state = 1f;
     private float duration = 1f;
 
+    public bool Enabled { get => enabled; set => enabled = value; }
+
     public void Play(float _duration)
     {
         duration = _duration;
@@ -17,6 +19,7 @@ public class Centerize : MonoBehaviour
 
     void Update()
     {
+        if(!this.enabled) { return; }
         state -= Time.deltaTime / duration;
         if (state <= 0)
         {
@@ -24,5 +27,13 @@ public class Centerize : MonoBehaviour
             Destroy(this);
         }
         transform.localPosition = startLocation * state;
+    }
+
+    public void Killadsaf()
+    {
+        startLocation = transform.position;
+        state = 1f;
+        this.enabled = false;
+        Destroy(gameObject);
     }
 }

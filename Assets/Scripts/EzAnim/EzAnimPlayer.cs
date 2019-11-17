@@ -10,9 +10,10 @@ public abstract class EzAnimPlayer : MonoBehaviour
     protected float DeltaTime { get { return Time.deltaTime * TimeScale; } }
 
     public float TimeScale { get => timeScale; set => timeScale = value; }
-    
+    public float Timer { get => timer; protected set => timer = value; }
+
     [SerializeField] protected List<EzComponent> components = new List<EzComponent>();
-    protected float timer = 0f;
+    private float timer = 0f;
 
     void OnValidate()
     {
@@ -26,6 +27,6 @@ public abstract class EzAnimPlayer : MonoBehaviour
     protected void UpdateEvents()
     {
         foreach (EzComponent c in components)
-        { c.Tick(timer, DeltaTime); }
+        { c.Tick(Timer, DeltaTime); }
     }
 }

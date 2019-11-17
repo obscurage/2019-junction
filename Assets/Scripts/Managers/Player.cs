@@ -6,8 +6,10 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
     [SerializeField] private Transform head;
+    [SerializeField] private List<Camera> cameras = new List<Camera>();
 
     public Transform Head { get => head; }
+    public List<Camera> Cameras { get => cameras; }
 
     void Awake()
     {
@@ -16,4 +18,9 @@ public class Player : MonoBehaviour
         else if (instance != this)
         { Destroy(gameObject); }
     }
+
+
+
+
+
 }

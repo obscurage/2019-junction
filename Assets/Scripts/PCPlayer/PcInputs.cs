@@ -34,6 +34,7 @@ public class PcInputs : HandInput
 
     public override bool SwitchMode()
     {
+        if(hand.HandType == HandType.LeftHand) { return false; }
         if(Input.GetKeyDown(KeyCode.Alpha3))
         { return true; }
         return false;
@@ -45,6 +46,7 @@ public class PcInputs : HandInput
 
     public override bool ViewScreen()
     {
+        if (hand.HandType == HandType.LeftHand) { return false; }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         { return true; }
         return false;
