@@ -17,9 +17,6 @@ public class Meteorite : MonoBehaviour
     [HideInInspector] [SerializeField] private Grabbable grabbable;
     [HideInInspector] [SerializeField] private Gravitable gravitable;
 
-    [SerializeField] private AudioSource oneShot;
-    [SerializeField] private AudioClip conflictSound;
-
     private bool isThrown = false;
     private bool isDestroyed = false;
 
