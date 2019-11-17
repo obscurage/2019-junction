@@ -14,10 +14,14 @@ public class Grabbable : MonoBehaviour
 
     [SerializeField] private UnityEvent onGrabEvent;
     [SerializeField] private UnityEvent onReleaseEvent;
+    [SerializeField] private UnityEvent onAbortReleaseEvent;
 
     public UnityEvent OnReleaseEvent { get => onReleaseEvent; set => onReleaseEvent = value; }
     public UnityEvent OnGrabEvent { get => onGrabEvent; set => onGrabEvent = value; }
+    public UnityEvent OnAbortReleaseEvent { get => onAbortReleaseEvent; set => onAbortReleaseEvent = value; }
     public Hand Grabber { get => grabber; private set => grabber = value; }
+
+    public Centerize Centerize { get; private set; }
 
     private Hand grabber = null;
 
@@ -37,7 +41,8 @@ public class Grabbable : MonoBehaviour
         Parentize(true);
         OnGrabEvent.Invoke();
         collider.enabled = false;
-        gameObject.AddComponent<Centerize>().Play(0.5f);
+        Centerize = gameObject.AddComponent<Centerize>();
+        Centerize.Play(0.5f);
     }
     public void Release(Hand hand)
     {
@@ -50,6 +55,19 @@ public class Grabbable : MonoBehaviour
         Grabber = null;
     }
 
+    public void AbortRelease(Hand hand)
+    {
+        Debug.Log("aborted");
+        Grabber = hand;
+        if (Centerize != null)
+        { Centerize.Killadsaf(); }
+        gravitable.Freeze();
+        AddForce(-0.25f);
+        gravitable.ApplyGravitalForce = true;
+        OnAbortReleaseEvent.Invoke();
+        Grabber = null;
+    }
+
     public bool CanPick()
     {
         if (Grabber is null)
@@ -57,16 +75,18 @@ public class Grabbable : MonoBehaviour
         return false;
     }
 
-    protected void AddForce()
+    protected void AddForce(float multiplier = 1f)
     {
-        gravitable.AddForce(Grabber.VelocityTracker.GetVelocity3D());
+        gravitable.AddForce(Grabber.VelocityTracker.GetVelocity3D() * multiplier);
     }
 
     protected void Parentize(bool state)
     {
         if (state && Grabber != null)
         {
+            Vector3 pos = transform.position;
             transform.parent = Grabber.GrabPoint;
+            transform.position = pos;
         }
         else
         {

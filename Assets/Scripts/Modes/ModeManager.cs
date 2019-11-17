@@ -10,6 +10,11 @@ public class ModeManager : MonoBehaviour
     {
         GameManager.instance.ModeManager = this;
     }
+    private void Start()
+    {
+        currentMode = ViewMode.orange;
+        SetMode(ViewMode.purple);
+    }
 
     [SerializeField] private ViewMode currentMode = ViewMode.purple;
     private List<ModeChanger> changers = new List<ModeChanger>();

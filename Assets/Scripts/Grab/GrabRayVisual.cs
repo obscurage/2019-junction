@@ -46,7 +46,7 @@ public class GrabRayVisual : MonoBehaviour
         }
         Enabled(false);
 
-        hand.OnGrabStart.OnValidateOnlyAddEvent(Play);
+        hand.OnShootStart.OnValidateOnlyAddEvent(Play);
         hand.OnGrabEnd.OnValidateOnlyAddEvent(Stop);
     }
 
@@ -60,7 +60,8 @@ public class GrabRayVisual : MonoBehaviour
         {
             hand.OuterRayAbort = true;
             timer = 1f;
-            if (hand.Grabbed) { 
+            if (hand.Grabbed)
+            {
                 looping.clip = holdSound;
                 looping.Play();
             }
@@ -86,12 +87,14 @@ public class GrabRayVisual : MonoBehaviour
 
         distance = hand.RayDistance;
         timer = 0f;
-        oneShot.PlayOneShot(shootSound);
+        if (!oneShot.isPlaying)
+        { oneShot.PlayOneShot(shootSound); }
         Enabled(true);
     }
 
     public void Stop(bool released)
     {
+        if(hand.Grabbed != null && hand.Grabbed.Centerize != null) { hand.AbortRelease(); }
         if (released)
         { oneShot.PlayOneShot(throwSound); }
         looping.Stop();

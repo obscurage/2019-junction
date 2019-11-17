@@ -14,10 +14,10 @@ public class EzLooper : EzAnimPlayer
 
     void LateUpdate()
     {
-        timer += DeltaTime;
-        if (timer >= 1)
+        Timer += DeltaTime;
+        if (Timer >= 1)
         {
-            timer -= 1f;
+            Timer -= 1f;
         }
 
         UpdateEvents();
@@ -26,7 +26,7 @@ public class EzLooper : EzAnimPlayer
     private void Play(EzEvent ezEvent)
     {
         this.enabled = true;
-        timer = 0f;
+        Timer = 0f;
         foreach (EzComponent component in components)
         {
             foreach (EzAction action in ezEvent.Actions)

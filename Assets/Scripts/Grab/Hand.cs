@@ -20,8 +20,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private LayerMask grabMask;
 
-    [SerializeField] private UnityEvent onShootStart = new UnityEvent();
-    [SerializeField] private UnityEventBool onGrabStart = new UnityEventBool();
+    [SerializeField] private UnityEventBool onShootStart = new UnityEventBool();
+    [SerializeField] private UnityEvent onGrabStart = new UnityEvent();
     [SerializeField] private UnityEventBool onGrabEnd = new UnityEventBool();
 
     private HandVelocityTracker velocityTracker;
@@ -29,11 +29,11 @@ public class Hand : MonoBehaviour
 
     public HandVelocityTracker VelocityTracker { get => velocityTracker; private set => velocityTracker = value; }
     public HandType HandType { get => handType; }
-    public UnityEventBool OnGrabStart { get => onGrabStart; set => onGrabStart = value; }
+    public UnityEvent OnGrabStart { get => onGrabStart; set => onGrabStart = value; }
     public UnityEventBool OnGrabEnd { get => onGrabEnd; set => onGrabEnd = value; }
     public float RayDistance { get => rayDistance; }
     public Transform GrabPoint { get => grabPoint; }
-    public UnityEvent OnShootStart { get => onShootStart; set => onShootStart = value; }
+    public UnityEventBool OnShootStart { get => onShootStart; set => onShootStart = value; }
 
     public bool OuterRayAbort { get; set; } = false;
     private bool shooting = false;
@@ -59,7 +59,7 @@ public class Hand : MonoBehaviour
             bool state = TryPick();
             if (!shooting)
             {
-                OnGrabStart.Invoke(state);
+                OnShootStart.Invoke(state);
                 OuterRayAbort = false;
             }
             shooting = true;
@@ -125,6 +125,7 @@ public class Hand : MonoBehaviour
 
         Grabbed = target;
         Grabbed.Grab(this);
+        OnGrabStart.Invoke();
         return true;
     }
 
@@ -132,6 +133,14 @@ public class Hand : MonoBehaviour
     {
         if (Grabbed is null) { return false; }
         Grabbed.Release(this);
+        Grabbed = null;
+        return true;
+    }
+
+    public bool AbortRelease()
+    {
+        if (Grabbed is null) { return false; }
+        Grabbed.AbortRelease(this);
         Grabbed = null;
         return true;
     }
