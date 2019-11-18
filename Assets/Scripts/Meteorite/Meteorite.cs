@@ -16,6 +16,10 @@ public class Meteorite : MonoBehaviour
 
     [HideInInspector] [SerializeField] private Grabbable grabbable;
     [HideInInspector] [SerializeField] private Gravitable gravitable;
+    [HideInInspector] [SerializeField] private GravitySource gravitySource;
+
+    [SerializeField] private bool updateMeteorite = false;
+    [SerializeField] List<ModeChanger> changers = new List<ModeChanger>();
 
     private bool isThrown = false;
     private bool isDestroyed = false;
@@ -23,6 +27,7 @@ public class Meteorite : MonoBehaviour
     public bool IsDestroyed { get => isDestroyed; }
     public MeteoriteType MeteoriteType { get => meteoriteType; }
     public Gravitable Gravitable { get => gravitable; private set => gravitable = value; }
+    public GravitySource GravitySource { get => gravitySource; private set => gravitySource = value; }
 
     public void SetThrown() { isThrown = true; }
 
@@ -30,14 +35,29 @@ public class Meteorite : MonoBehaviour
     {
         if (grabbable is null) { grabbable = GetComponent<Grabbable>(); }
         if (Gravitable is null) { Gravitable = GetComponent<Gravitable>(); }
+        if (GravitySource is null) { GravitySource = GetComponentInChildren<GravitySource>(); }
         if (gameObject.layer != 9)
         { gameObject.layer = 9; } // 9 = meteorite layer
 
+        if (updateMeteorite)
+        {
+            updateMeteorite = false;
+            changers = new List<ModeChanger>(GetComponentsInChildren<ModeChanger>());
+        }
         grabbable.OnReleaseEvent.OnValidateOnlyAddEvent(SetThrown);
+    }
+
+    private bool collided = false;
+
+    private void Start()
+    {
+        foreach(ModeChanger mc in changers)
+        { mc.ModeChange(GameManager.instance.ModeManager.CurrentMode); }
     }
 
     void FixedUpdate()
     {
+        collided = false;
         if (Vector3.Distance(transform.position, Player.instance.Head.position) > 1000f)
         {
             Destroy(gameObject);
@@ -46,41 +66,48 @@ public class Meteorite : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (!isThrown) { return; }
+        if(collided) { return; }
         if (IsDestroyed) { return; }
+        collided = true;
 
         Meteorite other = col.gameObject.GetComponent<Meteorite>();
         if (other is null) { return; }
 
-        DestroyType dType = GetDestroyType(other);
+        other.HitBy(this);
 
-        other.HitBy(this, dType);
-
-        DestroyMeteorite(dType);
-    }
-
-    public void HitBy(Meteorite meteorite, DestroyType dType)
-    {
-        switch (dType)
+        if (MeteoriteType == MeteoriteType.normal) { DestroyMeteorite(); }
+        else if (other.meteoriteType == MeteoriteType.normal && other.meteoriteType != MeteoriteType) { return; }
+        else
         {
-            case DestroyType.normal:
-                DestroyMeteorite(dType);
-                break;
-            case DestroyType.conflict:
-                OnConflict();
-                DestroyMeteorite(dType);
-                break;
-            case DestroyType.fuse:
-                power += meteorite.power + 1;
-                OnFuse();
-                break;
-            case DestroyType.suicide:
-                break;
+            DestroyMeteorite();
         }
     }
 
-    private void OnFuse()
+    public void HitBy(Meteorite meteorite)
     {
+        if (collided) { return; }
+        collided = true;
+
+        if(MeteoriteType == MeteoriteType.normal) { DestroyMeteorite(); }
+        else if(meteorite.meteoriteType == MeteoriteType.normal && meteorite.meteoriteType != MeteoriteType) { return; }
+        else
+        {
+            if(MeteoriteType == meteorite.MeteoriteType)
+            {
+                OnFuse(meteorite);
+            }
+            else
+            {
+                OnConflict();
+                DestroyMeteorite();
+            }
+        }
+        return;
+    }
+
+    private void OnFuse(Meteorite meteorite)
+    {
+        power += meteorite.power;
         transform.localScale = Vector3.one * (1 + (power * 0.3f));
         GetComponentInChildren<AudioSource>().PlayOneShot(fuseSound);
 
@@ -91,8 +118,12 @@ public class Meteorite : MonoBehaviour
         GetComponentInChildren<AudioSource>().PlayOneShot(neglateSound);
     }
 
-    private void DestroyMeteorite(DestroyType dType)
+    private void DestroyMeteorite()
     {
+        foreach (ModeChanger c in changers)
+        { GameManager.instance.ModeManager.Changers.Remove(c); }
+
+        GravitySource.WipeTargets();
         GetComponentInChildren<AudioSource>().PlayOneShot(destroySound);
         isDestroyed = true;
         destroyEffect.SpawnParticleEffect(transform.position);
@@ -101,10 +132,14 @@ public class Meteorite : MonoBehaviour
 
     private DestroyType GetDestroyType(Meteorite other)
     {
-        if (other.MeteoriteType != MeteoriteType.normal && other.MeteoriteType != MeteoriteType && MeteoriteType != MeteoriteType.normal)
+        if (
+            other.MeteoriteType != MeteoriteType.normal
+            && MeteoriteType != MeteoriteType.normal
+            && other.MeteoriteType != MeteoriteType)
         { return DestroyType.conflict; }
 
-        if (MeteoriteType != MeteoriteType.normal && other.MeteoriteType == MeteoriteType)
+        if (MeteoriteType != MeteoriteType.normal 
+            && other.MeteoriteType == MeteoriteType)
         { return DestroyType.fuse; }
 
         if (other.MeteoriteType == MeteoriteType.normal)

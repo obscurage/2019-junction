@@ -30,7 +30,7 @@ public class Grabbable : MonoBehaviour
         if (rb is null) { rb = GetComponent<Rigidbody>(); }
         if (gravitable is null) { gravitable = GetComponent<Gravitable>(); }
         if (collider is null) { collider = GetComponent<Collider>(); }
-        if(collider.isTrigger != false)
+        if (collider.isTrigger != false)
         { collider.isTrigger = false; }
     }
 
@@ -47,6 +47,17 @@ public class Grabbable : MonoBehaviour
     }
     public void Release(Hand hand)
     {
+        if (Centerize != null)
+        {
+            Centerize.Hand = hand;
+            Centerize.OnCenterEnd.AddListener(ReleaseActivity);
+        }
+        else
+        { ReleaseActivity(hand); }
+    }
+
+    private void ReleaseActivity(Hand hand)
+    {
         Parentize(false);
         rb.constraints = RigidbodyConstraints.None;
         AddForce();
@@ -58,12 +69,13 @@ public class Grabbable : MonoBehaviour
 
     public void AbortRelease(Hand hand)
     {
+        return;
         Debug.Log("aborted");
         Grabber = hand;
         if (Centerize != null)
         { Centerize.Killadsaf(); }
         gravitable.Freeze();
-        AddForce(-0.25f);
+        AddForceTowardsHand(-0.25f);
         gravitable.ApplyGravitalForce = true;
         OnAbortReleaseEvent.Invoke();
         Grabber = null;
@@ -79,6 +91,10 @@ public class Grabbable : MonoBehaviour
     protected void AddForce(float multiplier = 1f)
     {
         gravitable.AddForce(Grabber.VelocityTracker.GetVelocity3D() * multiplier);
+    }
+    private void AddForceTowardsHand(float multiplier = 1f)
+    {
+        gravitable.AddForce(Grabber.VelocityTracker.GetVelocity3D().magnitude * (grabber.transform.position - transform.position) * multiplier);
     }
 
     protected void Parentize(bool state)

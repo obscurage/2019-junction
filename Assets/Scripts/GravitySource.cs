@@ -7,6 +7,8 @@ public class GravitySource : MonoBehaviour
 {
     [HideInInspector] [SerializeField] private SphereCollider collider;
     [SerializeField] private float gravitalForce = 1f;
+
+    private List<Gravitable> myTarget = new List<Gravitable>();
     public Vector3 GetGravitalForce(Transform target)
     {
         if (transform == null) { Debug.LogWarning("idk error A"); return Vector3.zero; }
@@ -33,11 +35,20 @@ public class GravitySource : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         col.GetComponent<Gravitable>().Gravities.Add(this);
+        myTarget.Add(col.GetComponent<Gravitable>());
     }
 
     void OnTriggerExit(Collider col)
     {
         col.GetComponent<Gravitable>().Gravities.Remove(this);
+        myTarget.Add(col.GetComponent<Gravitable>());
     }
 
+    public void WipeTargets()
+    {
+        foreach(Gravitable g in myTarget)
+        {
+            g.Gravities.Remove(this);
+        }
+    }
 }

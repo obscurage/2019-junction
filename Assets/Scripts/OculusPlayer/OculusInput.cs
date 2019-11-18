@@ -44,7 +44,7 @@ public class OculusInput : HandInput
                 curTrig = OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger);
                 break;
             case HandType.RightHand:
-                curTrig = OVRInput.Get(OVRInput.RawAxis1D.RHandTrigger);
+                curTrig = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
                 break;
         }
     }

@@ -129,7 +129,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5528097137760503299
 Rigidbody:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteoriteType: 0
-  power: 0
+  power: 1
   destroyEffect: {fileID: 3552073383234998223, guid: d6e3d722810ef884f8936b9b4f848647,
     type: 3}
   destroySound: {fileID: 8300000, guid: 22505e8458d80f145aec4765f8b1db26, type: 3}
@@ -217,6 +217,9 @@ MonoBehaviour:
   fuseSound: {fileID: 8300000, guid: a223070f71e44044ba38701922c00ed5, type: 3}
   grabbable: {fileID: 5528097137760503309}
   gravitable: {fileID: 5528097137760503308}
+  gravitySource: {fileID: 5528097138253671498}
+  updateMeteorite: 0
+  changers: []
 --- !u!1 &5528097138253671861
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +278,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &4683908785939361605
 AudioSource:
