@@ -60,7 +60,7 @@ public class Meteorite : MonoBehaviour
         collided = false;
         if (Vector3.Distance(transform.position, Player.instance.Head.position) > 1000f)
         {
-            Destroy(gameObject);
+            DestroyMeteorite();
         }
     }
 
@@ -108,7 +108,7 @@ public class Meteorite : MonoBehaviour
     private void OnFuse(Meteorite meteorite)
     {
         power += meteorite.power;
-        transform.localScale = Vector3.one * (1 + (power * 0.3f));
+        transform.localScale = Vector3.one * (power);
         GetComponentInChildren<AudioSource>().PlayOneShot(fuseSound);
 
     }

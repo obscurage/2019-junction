@@ -50,5 +50,6 @@ public class GravitySource : MonoBehaviour
         {
             g.Gravities.Remove(this);
         }
+        myTarget = new List<Gravitable>();
     }
 }

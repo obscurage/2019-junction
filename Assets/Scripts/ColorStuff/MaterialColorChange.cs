@@ -14,11 +14,13 @@ public class MaterialColorChange : ColorChanger
 
     public override Color GetCurrentColor()
     {
-        return renderer.material.GetColor("_Color");
+        if(renderer is null) { return new Color(0,0,0,0); }
+        return renderer.material.GetColor("_Color"); 
     }
 
     public override void SetColor(Color newColor)
     {
-        renderer.material.SetColor("_Color", newColor);
+        if (renderer is null) { return; }
+        renderer.material.SetColor("_Color", newColor); 
     }
 }
