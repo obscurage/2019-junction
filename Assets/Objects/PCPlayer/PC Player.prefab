@@ -146,11 +146,11 @@ MonoBehaviour:
   modeLayers:
   - mask:
       serializedVersion: 2
-      m_Bits: 2049
+      m_Bits: 2561
     mode: 1
   - mask:
       serializedVersion: 2
-      m_Bits: 4097
+      m_Bits: 4609
     mode: 2
   cameras:
   - {fileID: 2485027762584697807}
