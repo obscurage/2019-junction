@@ -44,7 +44,8 @@ public class GrabRayVisual : MonoBehaviour
                 rend.SetPosition(i, transform.position);
             }
         }
-        Enabled(false);
+        if (this.enabled)
+        { Enabled(false); }
 
         hand.OnShootStart.OnValidateOnlyAddEvent(Play);
         hand.OnGrabEnd.OnValidateOnlyAddEvent(Stop);

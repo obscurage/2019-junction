@@ -7,7 +7,8 @@ public class PanicButtons : MonoBehaviour
 {
     void OnValidate()
     {
-        this.enabled = true;
+        if (!this.enabled)
+        { this.enabled = true; }
     }
     void Update()
     {

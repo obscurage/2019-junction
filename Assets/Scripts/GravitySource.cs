@@ -21,10 +21,13 @@ public class GravitySource : MonoBehaviour
 
     void OnValidate()
     {
-        gameObject.name = "GravitalField";
-        gameObject.layer = 10; // 10 = gravitalfield
+        if (gameObject.name != "GravitalField")
+        { gameObject.name = "GravitalField"; }
+        if (gameObject.layer != 10)
+        { gameObject.layer = 10; }// 10 = gravitalfield
         if (collider is null) { collider = GetComponent<SphereCollider>(); }
-        collider.isTrigger = true;
+        if(collider.isTrigger != true)
+        { collider.isTrigger = true; }
     }
 
     void OnTriggerEnter(Collider col)

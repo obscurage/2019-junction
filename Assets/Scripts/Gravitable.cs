@@ -13,8 +13,10 @@ public class Gravitable : MonoBehaviour
     void OnValidate()
     {
         if (rb is null) { rb = GetComponent<Rigidbody>(); }
-        rb.useGravity = false;
-        rb.isKinematic = false;
+        if (rb.useGravity)
+        { rb.useGravity = false; }
+        if (rb.isKinematic)
+        { rb.isKinematic = false; }
     }
 
     void FixedUpdate()

@@ -40,10 +40,11 @@ public class ModeManager : MonoBehaviour
         if (mode == CurrentMode) { return; }
         CurrentMode = mode;
         AudioManager.instance.ModeChange(mode);
-        foreach (ModeChanger changers in Changers)
+
+        for(int i = Changers.Count-1; i>=0;i--)
         {
-            if(changers is null) { continue; }
-            changers.ModeChange(CurrentMode);
+            if (Changers is null) { Changers.RemoveAt(i); }
+            else { Changers[i].ModeChange(CurrentMode); }
         }
     }
 }

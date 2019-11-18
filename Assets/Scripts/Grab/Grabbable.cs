@@ -30,7 +30,8 @@ public class Grabbable : MonoBehaviour
         if (rb is null) { rb = GetComponent<Rigidbody>(); }
         if (gravitable is null) { gravitable = GetComponent<Gravitable>(); }
         if (collider is null) { collider = GetComponent<Collider>(); }
-        collider.isTrigger = false;
+        if(collider.isTrigger != false)
+        { collider.isTrigger = false; }
     }
 
     public void Grab(Hand hand)

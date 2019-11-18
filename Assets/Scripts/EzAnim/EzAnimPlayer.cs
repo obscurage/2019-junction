@@ -17,7 +17,8 @@ public abstract class EzAnimPlayer : MonoBehaviour
 
     void OnValidate()
     {
-        this.enabled = true;
+        if (!this.enabled)
+        { this.enabled = true; }
     }
     void Start()
     {

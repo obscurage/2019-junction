@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0033173482, g: 0, b: 0.0048895525, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031043952, g: 0, b: 0.004594915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -412,6 +412,12 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 1104172319508713897, guid: e7fc4c25a40ce574688a4b4b145d8811,
     type: 3}
   m_PrefabInstance: {fileID: 1104172320125491156}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1279254927 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2485027762584697807, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+    type: 3}
+  m_PrefabInstance: {fileID: 2485027762130691601}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1104172320125491156
 PrefabInstance:
@@ -1132,6 +1138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4346621542930484351, guid: 39e6a4a74c608364ba2f82f33b80ae35,
         type: 3}
+      propertyPath: cameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346621542930484351, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+        type: 3}
       propertyPath: modeLayers.Array.data[0].mask.m_Bits
       value: 2561
       objectReference: {fileID: 0}
@@ -1139,6 +1150,16 @@ PrefabInstance:
         type: 3}
       propertyPath: modeLayers.Array.data[1].mask.m_Bits
       value: 4609
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346621542930484351, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+        type: 3}
+      propertyPath: cameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 1279254927}
+    - target: {fileID: 4346621542930484351, guid: 39e6a4a74c608364ba2f82f33b80ae35,
+        type: 3}
+      propertyPath: switchMode.m_Bits
+      value: 6657
       objectReference: {fileID: 0}
     - target: {fileID: 8105108295662452307, guid: 39e6a4a74c608364ba2f82f33b80ae35,
         type: 3}

@@ -30,7 +30,8 @@ public class Meteorite : MonoBehaviour
     {
         if (grabbable is null) { grabbable = GetComponent<Grabbable>(); }
         if (Gravitable is null) { Gravitable = GetComponent<Gravitable>(); }
-        gameObject.layer = 9; // 9 = meteorite layer
+        if (gameObject.layer != 9)
+        { gameObject.layer = 9; } // 9 = meteorite layer
 
         grabbable.OnReleaseEvent.OnValidateOnlyAddEvent(SetThrown);
     }
